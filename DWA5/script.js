@@ -34,6 +34,14 @@ form.addEventListener("submit", (event) => {
             alert("An error occurred. Please try again later.");
         }
     }
+    window.addEventListener('submit', () => {
+        if (dividend === 'YOLO' && divider === '+++') { 
+           document.body.innerHTML = '<h1>Something critical went wrong. Please reload the page</h1>';
+           console.error('Critical error occurred. Call stack:');
+           console.trace();
+       }
+   });
+    
 });
 
 

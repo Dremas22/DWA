@@ -32,14 +32,14 @@ form.addEventListener("submit", (event) => {
         } catch (error) {
             // Handling the error
             console.error("An error occurred:", error);
-            showResult.innerText = 'No calculation performed';
-            alert("An error occurred. Please try again later.");
+            showResult.innerText = 'Division not performed. Both values are required in inputs. Try again';
+            //alert("An error occurred. Please try again later.");
         }
     }
 
     window.addEventListener('submit', () => {
         if (dividend === 'YOLO' && divider === '+++') { 
-           document.body.innerHTML = '<h1>Something critical went wrong. Please reload the page</h1>';
+           document.body.innerHTML = '<h2>Something critical went wrong. Please reload the page</h2>';
            console.error('Critical error occurred. Call stack:');
            console.trace();
        }

@@ -33,7 +33,7 @@ form.addEventListener("submit", (event) => {
             // Handling the error
             console.error("An error occurred:", error);
             showResult.innerText = 'Division not performed. Both values are required in inputs. Try again';
-            //alert("An error occurred. Please try again later.");
+            
         }
     }
 

@@ -107,6 +107,8 @@ function populateSelectOptions(container, data, defaultValueText) {
     container.appendChild(fragment);
 }
 
+//---- (6) ABSTRACTION FOR GENRES AND AUTHORS SELECTION-----//
+
 const genresFrag = document.createDocumentFragment();
 populateSelectOptions(genresFrag, genres, 'All Genres');
 const searchGenre = document.querySelector('[data-search-genres]');
@@ -154,25 +156,63 @@ searchData.addEventListener('click', () => {
 
 //--=CONTROLS SCROLLING BOOKS PAGES ---//
 
-const listBtn = document.querySelector('[data-list-button]')
-listBtn.innerText = `Show more: ${(books.length - BOOKS_PER_PAGE)}`
+// const listBtn = document.querySelector('[data-list-button]')
+// listBtn.innerText = `Show more: ${(books.length - BOOKS_PER_PAGE)}`
 
-listBtn.innerHTML = /* html */[
-    `<span>Show more</span>,
-    <span class="list__remaining"> (${matches.length - [page * BOOKS_PER_PAGE] > 0 ? matches.length - [page * BOOKS_PER_PAGE] : 0})</span>`
-]
+
+// listBtn.innerHTML = /* html */[
+//     `<span>Show more</span>,
+//     <span class="list__remaining"> (${matches.length - [page * BOOKS_PER_PAGE] > 0 ? matches.length - [page * BOOKS_PER_PAGE] : 0})</span>`
+// ]
+
+//---- (5) ABSATRACTION FOR CREATING ELEMENT FOR MORE BOOKS TO PREVIEW---//
+
+function createListButtonHTML(booksLength, page, booksPerPage, matchesLength) {
+    const remainingBooks = Math.max(matchesLength - page * booksPerPage, 0);
+  
+    return `
+      <span>Show more</span>
+      <span class="list__remaining"> (${remainingBooks})</span>
+    `;
+  }
+  
+  const listBtn = document.querySelector('[data-list-button]');
+  listBtn.innerHTML = createListButtonHTML(books.length, page, BOOKS_PER_PAGE, matches.length);
+  
+
+
 
 /**
  * LISTENER FUNCTION FOR THAT INCREASES NUMBER OF BOOKS TO BE SCROLLED BASED ON WHAT THE USER WANTS VIEW
  */
 
 listBtn.addEventListener('click', () => {
-    const startIndex = page * BOOKS_PER_PAGE;
-    const endIndex = (page + 1) * BOOKS_PER_PAGE;
-    const fragment = document.createDocumentFragment();
+    // const startIndex = page * BOOKS_PER_PAGE;
+    // const endIndex = (page + 1) * BOOKS_PER_PAGE;
+    // const fragment = document.createDocumentFragment();
 
-    for (let i = startIndex; i < endIndex && i < matches.length; i++) {
-        const book = matches[i];
+    // for (let i = startIndex; i < endIndex && i < matches.length; i++) {
+    //     const book = matches[i];
+    //     const { author, image, title, id } = book;
+
+    //     const element = document.createElement('button');
+    //     element.classList = 'preview';
+    //     element.setAttribute('data-preview', id);
+
+    //     element.innerHTML = `
+    //     <img class="preview__image" src="${image}">
+    //     <div class="preview__info">
+    //       <h3 class="preview__title">${title}</h3>
+    //       <div class="preview__author">${authors[author]}</div>
+    //     </div>
+    //   `;
+    //     fragment.appendChild(element);
+    // }
+    // listItems.appendChild(fragment);
+
+    //----(4) ABSTRACTION ON CONTROLING NUMBER OF PAGES TO DISPLAY BOOKS FOR PREVIEWING-----//
+
+    function createBookPreview(book) {
         const { author, image, title, id } = book;
 
         const element = document.createElement('button');
@@ -180,15 +220,33 @@ listBtn.addEventListener('click', () => {
         element.setAttribute('data-preview', id);
 
         element.innerHTML = `
-        <img class="preview__image" src="${image}">
-        <div class="preview__info">
-          <h3 class="preview__title">${title}</h3>
-          <div class="preview__author">${authors[author]}</div>
-        </div>
-      `;
-        fragment.appendChild(element);
+          <img class="preview__image" src="${image}">
+          <div class="preview__info">
+            <h3 class="preview__title">${title}</h3>
+            <div class="preview__author">${authors[author]}</div>
+          </div>
+        `;
+
+        return element;
     }
-    listItems.appendChild(fragment);
+
+    function displayBookPreviews(matches, page, BOOKS_PER_PAGE) {
+        const startIndex = page * BOOKS_PER_PAGE;
+        const endIndex = (page + 1) * BOOKS_PER_PAGE;
+        const fragment = document.createDocumentFragment();
+
+        for (let i = startIndex; i < endIndex && i < matches.length; i++) {
+            const book = matches[i];
+            const previewElement = createBookPreview(book);
+            fragment.appendChild(previewElement);
+        }
+
+        listItems.appendChild(fragment);
+    }
+
+    // Usage example:
+    displayBookPreviews(matches, page, BOOKS_PER_PAGE);
+
 
     page += 1;
 
@@ -201,6 +259,8 @@ listBtn.addEventListener('click', () => {
 /**
  * THE SEARCH LISTENER FUNCTION FOR SEARCHING BOOKS BY AUHTOR, GENRE OR ALL SELECTION
  */
+
+// @ts-check
 
 const searchForm = document.querySelector('[data-search-form]')
 searchForm.addEventListener('submit', (event) => {
@@ -226,28 +286,28 @@ searchForm.addEventListener('submit', (event) => {
 
     function isTitleMatch(book, titleFilter) {
         return titleFilter.trim() === '' || book.title.toLowerCase().includes(titleFilter.toLowerCase());
-      }
-      
-      function isAuthorMatch(book, authorFilter) {
+    }
+
+    function isAuthorMatch(book, authorFilter) {
         return authorFilter === 'any' || book.author === authorFilter;
-      }
-      
-      function isGenreMatch(book, genreFilter) {
+    }
+
+    function isGenreMatch(book, genreFilter) {
         return genreFilter === 'any' || book.genres.includes(genreFilter);
-      }
-      
-      function filterBooks(matches, filters) {
+    }
+
+    function filterBooks(matches, filters) {
         return matches.filter((book) => {
-          const titleMatch = isTitleMatch(book, filters.title);
-          const authorMatch = isAuthorMatch(book, filters.author);
-          const genreMatch = isGenreMatch(book, filters.genre);
-      
-          return titleMatch && authorMatch && genreMatch;
+            const titleMatch = isTitleMatch(book, filters.title);
+            const authorMatch = isAuthorMatch(book, filters.author);
+            const genreMatch = isGenreMatch(book, filters.genre);
+
+            return titleMatch && authorMatch && genreMatch;
         });
-      }
-      
-      const result = filterBooks(matches, filters);
-      
+    }
+
+    const result = filterBooks(matches, filters);
+
 
     const listMessage = document.querySelector('[data-list-message]');
 
@@ -281,7 +341,7 @@ searchForm.addEventListener('submit', (event) => {
         listItems.appendChild(fragment);
     }
 
-    
+
 
     searchForm.open = false;
     listBtn.disabled = true
@@ -354,40 +414,42 @@ listItems.addEventListener('click', (event) => {
 
 //------- (2) ABSTRACTION ON CHANGING THE THME OF A FORM------//
 
+// @ts-check
+
 const themes = {
     day: {
-      dark: '10, 10, 20',
-      light: '255, 255, 255',
+        dark: '10, 10, 20',
+        light: '255, 255, 255',
     },
     night: {
-      dark: '255, 255, 255',
-      light: '10, 10, 20',
+        dark: '255, 255, 255',
+        light: '10, 10, 20',
     },
-  };
-  
-  function applyTheme(theme) {
+};
+
+function applyTheme(theme) {
     const { dark, light } = themes[theme];
     document.documentElement.style.setProperty('--color-dark', dark);
     document.documentElement.style.setProperty('--color-light', light);
-  }
-  
-  function setInitialTheme() {
+}
+
+function setInitialTheme() {
     const themeSett = document.querySelector('[data-settings-theme]');
     const selectedTheme = themeSett.value;
     applyTheme(selectedTheme);
-  }
-  
-  const formSettings = document.querySelector('[data-settings-overlay]');
-  formSettings.addEventListener('submit', (event) => {
+}
+
+const formSettings = document.querySelector('[data-settings-overlay]');
+formSettings.addEventListener('submit', (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const result = Object.fromEntries(formData);
     applyTheme(result.theme);
     formSettings.open = false;
-  });
-  
-  setInitialTheme();
-  
+});
+
+setInitialTheme();
+
 
 //--- Apply selected theme on form submit-----//
 
@@ -413,11 +475,11 @@ function handleFormSubmit(event) {
     const result = Object.fromEntries(formData);
     applyTheme(result.theme);
     formSettings.open = false;
-  }
-  
-  formSettings.addEventListener('submit', handleFormSubmit);
-  
+}
 
-  
+formSettings.addEventListener('submit', handleFormSubmit);
+
+
+
 
 

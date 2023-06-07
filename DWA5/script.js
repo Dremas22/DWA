@@ -1,7 +1,7 @@
 // scripts.js
 
 const form = document.querySelector("[data-form]");
-const result = document.querySelector("[data-result]");
+//const result = document.querySelector("[data-result]");
 const showResult = document.querySelector('[data-result]')
 
 form.addEventListener("submit", (event) => {
@@ -41,11 +41,20 @@ form.addEventListener("submit", (event) => {
         if (dividend === 'YOLO' && divider === '+++') { 
            document.body.innerHTML = '<h2>Something critical went wrong. Please reload the page</h2>';
            console.error('Critical error occurred. Call stack:');
-           console.trace();
+           
        }
    });
     
 });
+
+const resetButton = document.querySelector('[data-reset]')
+resetButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    
+    window.location.href = "index.html"
+})
+
+
 
 
 

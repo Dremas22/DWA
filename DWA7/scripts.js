@@ -1,5 +1,5 @@
 
-import { authors, genres, books, BOOKS_PER_PAGE } from './data.js'
+import { authors, genres, books, BOOKS_PER_PAGE } from './modules/data.js'
 
 let matches = books;
 let page = 1;
@@ -82,6 +82,8 @@ for (const { author, id, image, title } of extracted) {
 }
 listItems.appendChild(fragment)
 
+// @ts-check
+
 /**
  * CREATING FRAGMENTS THAT COTAIN DOCUMENT OBJECT ELEMENTS FOR OBJECT GENRE AND OBJECT AUTHOR
  */
@@ -156,6 +158,8 @@ searchData.addEventListener('click', () => {
 
 //--=CONTROLS SCROLLING BOOKS PAGES ---//
 
+// @ts-check
+
 // const listBtn = document.querySelector('[data-list-button]')
 // listBtn.innerText = `Show more: ${(books.length - BOOKS_PER_PAGE)}`
 
@@ -180,7 +184,7 @@ function createListButtonHTML(booksLength, page, booksPerPage, matchesLength) {
   listBtn.innerHTML = createListButtonHTML(books.length, page, BOOKS_PER_PAGE, matches.length);
   
 
-
+// @ts-check
 
 /**
  * LISTENER FUNCTION FOR THAT INCREASES NUMBER OF BOOKS TO BE SCROLLED BASED ON WHAT THE USER WANTS VIEW
@@ -255,12 +259,12 @@ listBtn.addEventListener('click', () => {
     listBtn.textContent = `Show more (${remaining})`;
 });
 
+// @ts-check
 
 /**
  * THE SEARCH LISTENER FUNCTION FOR SEARCHING BOOKS BY AUHTOR, GENRE OR ALL SELECTION
  */
 
-// @ts-check
 
 const searchForm = document.querySelector('[data-search-form]')
 searchForm.addEventListener('submit', (event) => {

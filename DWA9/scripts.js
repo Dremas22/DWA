@@ -124,22 +124,36 @@ h2 {
  <input type="number" class="overlay__input" data-price-order>
  <h2>Enter your full names</h2>
  <input type="text" class="overlay__input" data-customer-order>
- <button class="overlay__button overlay__button_primary" data-cancel-order>Cancel</button>
+ <button class="overlay__button overlay__button_primary" id="cancelOrder">Cancel</button>
  <button class="overlay__button overlay__button_primary" data-add-order>Submit order</button>
 </div>
  `
 class OrderBook extends HTMLElement {
+/**
+ * @typedef
+ */
+
     constructor() {
         super();
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+        order.appendChild(this.shadowRoot);
     }
 
-    
+    connectedCallback() {
+        const cancelButton = this.shadowRoot.querySelector('#cancelOrder');
+        console.log(cancelButton)
+        const order = this.parentElement;
+        cancelButton.addEventListener('click', () => {
+            order.classList.add('hidden');
+        });
+    }
+
+
 }
 window.customElements.define('book-order', OrderBook);
-const bookOrder = document.querySelector('[data-content]')
+
 
 
 

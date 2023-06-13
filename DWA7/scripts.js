@@ -191,9 +191,9 @@ function createListButtonHTML(booksLength, page, booksPerPage, matchesLength) {
  */
 
 listBtn.addEventListener('click', () => {
-    // const startIndex = page * BOOKS_PER_PAGE;
-    // const endIndex = (page + 1) * BOOKS_PER_PAGE;
-    // const fragment = document.createDocumentFragment();
+    const startIndex = page * BOOKS_PER_PAGE;
+    const endIndex = (page + 1) * BOOKS_PER_PAGE;
+    const fragment = document.createDocumentFragment();
 
     // for (let i = startIndex; i < endIndex && i < matches.length; i++) {
     //     const book = matches[i];
@@ -272,45 +272,45 @@ searchForm.addEventListener('submit', (event) => {
 
     const formData = new FormData(searchForm);
     const filters = Object.fromEntries(formData);
-    //const result = [];
+    const result = [];
 
-    // for (let i = 0; i < matches.length; i++) {
-    //     const book = matches[i];
+    for (let i = 0; i < matches.length; i++) {
+        const book = matches[i];
 
-    //     const titleMatch = filters.title.trim() === '' || book.title.toLowerCase().includes(filters.title.toLowerCase());
-    //     const authorMatch = filters.author === 'any' || book.author === filters.author;
-    //     const genreMatch = filters.genre === 'any' || book.genres.includes(filters.genre);
+        const titleMatch = filters.title.trim() === '' || book.title.toLowerCase().includes(filters.title.toLowerCase());
+        const authorMatch = filters.author === 'any' || book.author === filters.author;
+        const genreMatch = filters.genre === 'any' || book.genres.includes(filters.genre);
 
-    //     if (titleMatch && authorMatch && genreMatch) {
-    //         result.push(book);
-    //     }
-    // }
+        if (titleMatch && authorMatch && genreMatch) {
+            result.push(book);
+        }
+    }
 
     //---- (1) SOLID ABSTRACTED MATCH ITERATION ON GENRE AND AUTHORS
 
-    function isTitleMatch(book, titleFilter) {
-        return titleFilter.trim() === '' || book.title.toLowerCase().includes(titleFilter.toLowerCase());
-    }
+    // function isTitleMatch(book, titleFilter) {
+    //     return titleFilter.trim() === '' || book.title.toLowerCase().includes(titleFilter.toLowerCase());
+    // }
 
-    function isAuthorMatch(book, authorFilter) {
-        return authorFilter === 'any' || book.author === authorFilter;
-    }
+    // function isAuthorMatch(book, authorFilter) {
+    //     return authorFilter === 'any' || book.author === authorFilter;
+    // }
 
-    function isGenreMatch(book, genreFilter) {
-        return genreFilter === 'any' || book.genres.includes(genreFilter);
-    }
+    // function isGenreMatch(book, genreFilter) {
+    //     return genreFilter === 'any' || book.genres.includes(genreFilter);
+    // }
 
-    function filterBooks(matches, filters) {
-        return matches.filter((book) => {
-            const titleMatch = isTitleMatch(book, filters.title);
-            const authorMatch = isAuthorMatch(book, filters.author);
-            const genreMatch = isGenreMatch(book, filters.genre);
+    // function filterBooks(matches, filters) {
+    //     return matches.filter((book) => {
+    //         const titleMatch = isTitleMatch(book, filters.title);
+    //         const authorMatch = isAuthorMatch(book, filters.author);
+    //         const genreMatch = isGenreMatch(book, filters.genre);
 
-            return titleMatch && authorMatch && genreMatch;
-        });
-    }
+    //         return titleMatch && authorMatch && genreMatch;
+    //     });
+    // }
 
-    const result = filterBooks(matches, filters);
+    // const result = filterBooks(matches, filters);
 
 
     const listMessage = document.querySelector('[data-list-message]');
@@ -480,7 +480,6 @@ function handleFormSubmit(event) {
     applyTheme(result.theme);
     formSettings.open = false;
 }
-
 formSettings.addEventListener('submit', handleFormSubmit);
 
 

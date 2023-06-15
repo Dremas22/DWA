@@ -1,0 +1,85 @@
+:root {
+    --color-grey: #B0A8B9;
+    --color-purple: #845EC2;
+    --color-charcoal: #444553;
+    --color-red: #D63423;
+}
+
+* {
+    box-sizing: border-box;
+
+}
+
+header {
+    color: var(--color-charcoal);
+    padding: 8px;
+}
+
+.selections {
+    border: 2px solid;
+    background: var(--color-charcoal);
+    color: var(--color-grey)
+    
+}
+
+body {
+    background: var(--color-grey);
+    font-family: Roboto,sans serif;
+    text-align: center;
+
+}
+
+.selctions {
+    padding: 3em;
+    margin: auto;
+}
+
+.controls {
+    text-align: center;
+    padding-top: 3em;
+}
+
+.display {
+    border: 2px solid var(--color-charcoal);
+    width: 50%;
+    height: 250px;
+    background: var(--color-purple);
+    text-align: center;
+    font-size: 8rem;
+    color: var(--color-charcoal);
+    font-weight: bold;
+    
+}
+
+.container {
+    display: flex;
+    padding: 2px;
+    justify-content: center;
+    
+}
+
+.increment, .decrement {
+    background: var(--color-charcoal);
+    width: 17%;
+    height: 100px;
+    margin: 1px;
+    font-size: 3rem;
+}
+
+.resets {
+    background: var(--color-charcoal);
+    width: 16%;
+    height: 100px;
+    margin: 1px;
+    font-size: 1.6rem;
+    
+
+}
+
+ .decrement:disabled {
+    background: var(--color-red);
+}
+
+.increment:disabled {
+    background: var(--color-red);
+}

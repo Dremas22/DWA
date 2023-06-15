@@ -1,3 +1,4 @@
+/* eslint-disable lines-between-class-members */
 /* eslint-disable no-undef */
 /* eslint-disable no-multiple-empty-lines */
 /* eslint-disable quotes */
@@ -28,7 +29,7 @@ template.innerHTML = /* html */`
 }
 
 h2 { 
-    color: black
+    color: grey
 }
 
 .overlay {
@@ -37,6 +38,7 @@ h2 {
     bottom: 0;
     left: 0;
     width: 100%;
+    height: 480px;
     border-width: 0;
     box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12);
     animation-name: enter;
@@ -99,7 +101,7 @@ h2 {
   .overlay__content {
     padding: 2rem 1.5rem;
     text-align: center;
-    padding-top: 3rem;
+    padding-top: 1rem;
   }
 
   .hidden {
@@ -116,6 +118,10 @@ h2 {
     margin: 0 auto;
     color: rgba(var(--color-dark), 0.8)
   }
+
+  .buttons {
+    display: flex
+  }
   
   
 </style>
@@ -124,35 +130,34 @@ h2 {
  <input type="number" class="overlay__input" data-price-order>
  <h2>Enter your full names</h2>
  <input type="text" class="overlay__input" data-customer-order>
+ <div class="buttons">
  <button class="overlay__button overlay__button_primary" id="cancelOrder">Cancel</button>
  <button class="overlay__button overlay__button_primary" data-add-order>Submit order</button>
+ </div>
 </div>
  `
 class OrderBook extends HTMLElement {
-/**
- * @typedef
- */
 
     constructor() {
         super();
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
-        order.appendChild(this.shadowRoot);
+        orderForm.appendChild(this.shadowRoot); 
     }
-
     connectedCallback() {
+        const orderBookElement = this.shadowRoot.querySelector('[data-shadow]')
+        console.log(orderBookElement)
         const cancelButton = this.shadowRoot.querySelector('#cancelOrder');
-        console.log(cancelButton)
-        const order = this.parentElement;
-        cancelButton.addEventListener('click', () => {
-            order.classList.add('hidden');
-        });
-    }
 
+    
+        // cancelButton.addEventListener('click', () => {
+        //     this.shadowRoot.querySelector('.overlay__content').classList.add('hidden');
+        // });
+    }
 
 }
-window.customElements.define('book-order', OrderBook);
+customElements.define('book-order', OrderBook);
 
 
 

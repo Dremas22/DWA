@@ -158,31 +158,20 @@ searchData.addEventListener('click', () => {
 
 //--=CONTROLS SCROLLING BOOKS PAGES ---//
 
-// @ts-check
-
-// const listBtn = document.querySelector('[data-list-button]')
-// listBtn.innerText = `Show more: ${(books.length - BOOKS_PER_PAGE)}`
-
-
-// listBtn.innerHTML = /* html */[
-//     `<span>Show more</span>,
-//     <span class="list__remaining"> (${matches.length - [page * BOOKS_PER_PAGE] > 0 ? matches.length - [page * BOOKS_PER_PAGE] : 0})</span>`
-// ]
-
 //---- (5) ABSATRACTION FOR CREATING ELEMENT FOR MORE BOOKS TO PREVIEW---//
 
 function createListButtonHTML(booksLength, page, booksPerPage, matchesLength) {
     const remainingBooks = Math.max(matchesLength - page * booksPerPage, 0);
-  
+
     return `
       <span>Show more</span>
       <span class="list__remaining"> (${remainingBooks})</span>
     `;
-  }
-  
-  const listBtn = document.querySelector('[data-list-button]');
-  listBtn.innerHTML = createListButtonHTML(books.length, page, BOOKS_PER_PAGE, matches.length);
-  
+}
+
+const listBtn = document.querySelector('[data-list-button]');
+listBtn.innerHTML = createListButtonHTML(books.length, page, BOOKS_PER_PAGE, matches.length);
+
 
 // @ts-check
 

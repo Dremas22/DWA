@@ -1,3 +1,9 @@
+/**
+ * These are variables that controls maximum and minimum counter clicks.
+ * @type {number} MAX_NUMBER 
+ * @type {number} MIN_NUMBER 
+ */
+
 const MAX_NUMBER = 10;
 const MIN_NUMBER = -6;
 
@@ -32,7 +38,6 @@ const resettingHandler = () => {
     add.disabled = false;
     subtract.disabled = false;
 }
-
 
 
 add.addEventListener('click', increaseHandler);

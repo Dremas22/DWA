@@ -43,7 +43,7 @@ body {
     border: 2px solid var(--color-charcoal);
     width: 48%;
     height: 250px;
-    background: var(--color-purple);
+    background: #ADC5CF;
     text-align: center;
     font-size: 8rem;
     color: var(--color-charcoal);
@@ -64,9 +64,10 @@ sl-button {
     height: 100px;
     margin: 1px;
     font-size: 3rem;
-    
-    
+      
 }
+
+
 
  .decrement:disabled {
     background: var(--color-red);

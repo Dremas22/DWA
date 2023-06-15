@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/themes/light.css" />
     <script type="module"
         src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace-autoloader.js"></script>
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/components/button/button.js"></script>
     <script src="script.js" defer></script>
 </head>
 
@@ -24,7 +26,7 @@
         <div class="selections">
 
             <label>
-            Increament and Decreament
+                Increament and Decreament
             </label>
 
         </div>
@@ -32,12 +34,12 @@
 
     <main class="controls">
         <div>
-        <input class="display" data-key="number" readonly value="0">
+            <input class="display" data-key="number" readonly value="0">
         </div>
         <div class="container">
-            <sl-button data-key="addition" class="add">+</sl-button>
-            <sl-button data-key="reset" class="resetCounter">reset</sl-button>
-            <sl-button data-key="subtraction" class="minus">-</sl-button>
+            <sl-button variant="primary"  size="large" data-key="addition" class="add">+</sl-button>
+            <sl-button variant="neutral"  size="large" data-key="reset" class="resetCounter">reset</sl-button>
+            <sl-button data-key="subtraction"  size="large" variant="warning" class="minus">-</sl-button>
 
         </div>
     </main>

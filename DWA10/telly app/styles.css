@@ -41,7 +41,7 @@ body {
 
 .display {
     border: 2px solid var(--color-charcoal);
-    width: 50%;
+    width: 48%;
     height: 250px;
     background: var(--color-purple);
     text-align: center;
@@ -58,22 +58,14 @@ body {
     
 }
 
-.increment, .decrement {
-    background: var(--color-charcoal);
-    width: 17%;
-    height: 100px;
-    margin: 1px;
-    font-size: 3rem;
-}
-
-.resets {
-    background: var(--color-charcoal);
+sl-button {
+    
     width: 16%;
     height: 100px;
     margin: 1px;
-    font-size: 1.6rem;
+    font-size: 3rem;
     
-
+    
 }
 
  .decrement:disabled {

@@ -36,18 +36,20 @@ body {
 
 .controls {
     text-align: center;
-    padding-top: 3em;
+    padding-top: 4em;
+    
 }
 
 .display {
     border: 2px solid var(--color-charcoal);
-    width: 48%;
+    width: 250px;
     height: 250px;
     background: #ADC5CF;
     text-align: center;
     font-size: 8rem;
     color: var(--color-charcoal);
     font-weight: bold;
+    border-radius: 100%;
     
 }
 

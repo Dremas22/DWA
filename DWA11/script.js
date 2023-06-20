@@ -1,13 +1,9 @@
-import store from './store.js';
-import { incrementAction, decrementAction } from './actions';
+import { subscribe, dispatch } from "./model/store.js";
+import { addTask, toggleAdd } from "./model/actions.js";
 
-// Access the store's state
-console.log(store.getState());
-
-
-store.dispatch(incrementAction());
-store.dispatch(incrementAction());
-store.dispatch(decrementAction());
+subscribe((_, next) => console.log(next));
 
 
-console.log(store.getState());
+dispatch(toggleAdd())
+console.log(addTask({ title: 'Hello'}))
+console.log(toggleAdd())

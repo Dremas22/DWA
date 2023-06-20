@@ -1,12 +1,37 @@
+import { State } from './store.js'
+import { Action } from './actions.js'
 
-const counterReducer = (state = [], action) => {
-    if (action.type === 'INCREMENT' || action.type === 'DECREMENT') {
-        return [
-            ...state
-        ]    
+/**
+ * @param {State} state
+ * @param {Action} action
+ * @return {State}
+ */
+export const reducer = (state, action) => {
+    switch (action.type) {
+        case 'ADD_TASK': {
+            return {
+                ...state,
+                
+                tasks: {
+                    [action.task.id]: action.task,
+                    ...state.tasks,
+                }
+            }
+        }
         
-    }
-    return state
-};
+        case 'TOGGLE_ADD': {
+            return {
+                ...state,
+                phase: state === 'adding' ? 'idle' : 'adding',
+            }
 
-export default counterReducer;
+        }
+
+        default:
+            return state
+    }
+
+    
+}
+
+

@@ -1,36 +1,94 @@
+import  {reducer} from './reducer.js'
+/**
+ * @typedef {object}
+ * @prop {string} id
+ * @prop {string} title
+ */
 
+export const Task = {}
 
-import {counterReducer} from './reducer.js';
+/**
+ * @typedef {object} Filters
+ */
 
-const createStore = (reducer) => {
-    let state;
-    let listeners = [];
-  
-    const getState = () => {
-        return state[0];
+/**
+ * @typedef {State}
+ * @prop {'idle' | 'adding' } phase
+ * @prop {record<string, Task>} tasks
+ * @prop {Filter} filters
+ */
+
+export const State = {};
+
+/**
+ *@callback getState
+ *@returns {state}
+ */
+
+ /**
+  * @callback Dispatch
+  * @param {action} action
+  */
+
+ /**
+  * @callback EmptyFn
+  */
+
+ /**
+  * @callback Subscription
+  * @param {State} prev
+  * @param {State} next
+  */
+
+ 
+
+/**
+ * @type {Array<Subscribe>}
+ */
+const subscribers = [];
+
+/**
+ * @type {Array<State>}
+ */
+const states = [];
+
+/**
+ * @return {State}
+ */
+const getState = () => {
+    return { ...states[0] };
+}
+
+/**
+ * @param {Action} action
+ */
+export const dispatch = (action) => {
+    const prev = getState();
+    const next = reducer(prev, action)
+    subscribers.forEach((item) => (prev, next));
+
+    states.unshift(next);
+
+}
+
+/**
+ * 
+ */
+export const subscribe = (subscription) => {
+    subscribers.push(subscription)
+    const handler = (item) => item != subscription
+
+    const unsubscribe = () => {
+        const newSubscribers = subscribers.filter(handler)
+        subscribers = newSubscribers;
     }
-    const dispatch = (action) => {
-      state = reducer(state, action);
-      listeners.forEach((listener) => listener());
-    };
-  
-    const subscribe = (listener) => {
-      listeners.push(listener);
-      return () => {
-        listeners = listeners.filter((l) => l !== listener);
-      };
-    };
-  
-    dispatch({}); // Initialize the state with a dummy action
-  
-    return { getState, dispatch, subscribe };
-  };
-  
-  export default createStore(counterReducer);
-  
-
-//const store = createStore(counterReducer);
+    return unsubscribe;
+}
 
 
-
-  
+/**
+  * @typedef {object} store
+  * @prop {GetState} getState
+  * @prop {Subscribe} subscribe
+  * @prop {Dispatch} dispatch
+  */

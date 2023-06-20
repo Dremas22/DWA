@@ -1,0 +1,7 @@
+{
+    "compileroptions": {
+        "allowjs": true,
+        checkjs": true,
+        "target": "ES2018"
+    }
+}

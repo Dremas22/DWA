@@ -1,33 +1,18 @@
-import { State } from './store.js'
-import { Action } from './actions.js'
+const initialState = {
+    count: 0
+};
 
-/**
- * @param {State} state
- * @param {Action} action
- * @return {State}
- */
-export const reducer = (state, action) => {
-    switch (action) {
-        case 'INCREMENT': {
-            return {
-                ...state,
-                increment
-            }
-        }
-        
-        case 'DREMENT': {
-            return {
-                ...state,
-                decrement
-            }
-
-        }
-
+const counterReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { count: state.count + 1 };
+        case 'DECREMENT':
+            return { count: state.count - 1 };
+        case 'RESET':
+            return { count: state.count = 0 };
         default:
-            return state
+            return state;
     }
+};
 
-    
-}
-
-
+export default counterReducer;

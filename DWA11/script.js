@@ -1,7 +1,22 @@
-import { dispatch } from "./model/store.js";
-import { reset, increment, decrement } from "./model/actions.js"; 
+import createStore from './model/store.js';
+import counterReducer from './model/reducer.js';
+import { increment, decrement, reset } from './model/actions.js';
 
-dispatch(increment());
-dispatch(reset());
-dispatch(decrement());
+
+/**
+ * stores main parameters for our redux counter
+ * @param {string} store
+ */
+const store = createStore(counterReducer);
+
+const unsubscribe = store.subscribe(() => {
+  console.log(store.getState());
+});
+
+store.dispatch(increment());
+store.dispatch(increment());
+store.dispatch(reset());
+store.dispatch(decrement());
+
+unsubscribe();
 

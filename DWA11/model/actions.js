@@ -1,57 +1,21 @@
-import { tallyCount } from './store.js'
+/**
+ * @returns {increment}
+ */
+export const increment = () => ({
+  type: 'INCREMENT'
+});
 
 /**
- * @callback increment
- * @param {increment} type
- *
+ * @returns {decrement}
  */
-export const increment = (result) => {
-  
-
-  if (result === tallyCount.max) {
-    return result += 1; 
-  }
-  else {
-    result = reset()
-  }
-}
+export const decrement = () => ({
+  type: 'DECREMENT'
+});
 
 /**
- * @callback decrement
- * @param {decrement} type
- *
+ * @returns {reset}
  */
-export const decrement = (result) => {
+export const reset = () => ({
+  type: 'RESET'
+})
 
-  
-
-  if (result === tallyCount.min) {
-    return result -= 1;
-  } else {
-    result = reset()
-  }
-}
-
-/**
- * @callback reset
- * @prop {Reset} type
- */
-export const reset = (result) => {
-  if (result >= tallyCount.max || result <= tallyCount.min) {
-
-    return result = 0;
-  }
-}
-
-/**
- * @typedef {increment | decrement | reset} Action
- */
-export const Action = () => {
-  if(increment) {
-    console.log(increment())
-  } else if (decrement) {
-    console.log(increment())
-  } else {
-    console.log(reset())
-  }
-}

@@ -1,39 +1,46 @@
-import { reducer } from './reducer.js';
 
 /**
- * @param {object} tallyCount
- * 
+ * Creates a storage for our state 
+ * @callback createStore 
+ * @returns {Subscribers}
  */
+const createStore = (reducer) => {
+    let state = undefined;
+    const subscribers = [];
+  
+    const getState = () => state;
+  
+    const dispatch = (action) => {
+      state = reducer(state, action);
+      subscribers.forEach((subscriber) => subscriber());
+    };
 
-export const tallyCount = {
-    max: 10,
-    min: 6
-}
+    /**
+     * 
+     * @param {subscriber} subscriber 
+     * @returns {index}
+     */
+    const subscribe = (subscriber) => {
+      subscribers.push(subscriber);
+      return () => {
+        const index = subscribers.indexOf(subscriber);
+        if (index !== -1) {
+          subscribers.splice(index, 1);
+        }
+      };
+    };
 
-/**
- * @typedef {object} State
- */
-export const State = {};
-
-/**
- * @type {Array<State}
- * @return {State}
- */
-const states = []
-export const getState = () => {
+    /**
+     * @typedef {dispatch} dispatch
+     */
+    dispatch({}); 
+  
     return {
-        ...states[0]
-    }
-    
-}
-
-/**
- * @callback dispatch
- * @param {Action} action
- */
-export const dispatch = (action) => {
-    const prev = getState();
-    const next = reducer(prev, action);
-    states.push(next)
-    // console.log(action)
-}
+      getState,
+      dispatch,
+      subscribe,
+    };
+  };
+  
+  export default createStore;
+  

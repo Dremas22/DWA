@@ -1,9 +1,7 @@
-import { subscribe, dispatch } from "./model/store.js";
-import { addTask, toggleAdd } from "./model/actions.js";
+import { dispatch } from "./model/store.js";
+import { reset, increment, decrement } from "./model/actions.js"; 
 
-subscribe((_, next) => console.log(next));
+dispatch(increment());
+dispatch(reset());
+dispatch(decrement());
 
-
-dispatch(toggleAdd())
-console.log(addTask({ title: 'Hello'}))
-console.log(toggleAdd())

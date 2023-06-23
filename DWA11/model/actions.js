@@ -1,62 +1,57 @@
-import { Task } from'./store.js'
+import { tallyCount } from './store.js'
 
 /**
- * @typedef {object} AddTask
- * @prop {'ADD_TASK'} type
- * @prop {Task} 
+ * @callback increment
+ * @param {increment} type
+ *
  */
-
-/**
- * @return {string}
- */
-
-export const createUniqueId = () => {
-    const uniqueId = Date.now().toString(36); // Use the current timestamp as a unique ID
-    return uniqueId;
-  }
+export const increment = (result) => {
   
 
-/**
- * Starts or stops the adding of a new task depending on the current phase
- * @typedef {object} ToggleAdd
- * @prop {'TOGGLE_ADD'} type
- */
-
-
-
-/**
- * @param {object} props
- * @param {string} props.title
- * @returns {AddTask}
- */
-export const addTask = (props) => {
-    const { title } = props
-    return {
-        task: {
-            id: createUniqueId,
-            title,
-        },
-        type: 'ADD_TASK'
-    }
+  if (result === tallyCount.max) {
+    return result += 1; 
+  }
+  else {
+    result = reset()
+  }
 }
 
 /**
- * @returns {ToggleAdd}
+ * @callback decrement
+ * @param {decrement} type
+ *
  */
-// export const toggleAdd = ({ type: "TOGGLE_ADD"});
+export const decrement = (result) => {
 
-export const toggleAdd = () => {
-    return {
-      type: 'TOGGLE_ADD',
-    };
-  };
+  
 
+  if (result === tallyCount.min) {
+    return result -= 1;
+  } else {
+    result = reset()
+  }
+}
 
 /**
- * @typedef {AddTask | ToggleAdd} Action
- * @return {ToggleAdd}
+ * @callback reset
+ * @prop {Reset} type
  */
+export const reset = (result) => {
+  if (result >= tallyCount.max || result <= tallyCount.min) {
 
-export const Action = toggleAdd().type
+    return result = 0;
+  }
+}
 
-
+/**
+ * @typedef {increment | decrement | reset} Action
+ */
+export const Action = () => {
+  if(increment) {
+    console.log(increment())
+  } else if (decrement) {
+    console.log(increment())
+  } else {
+    console.log(reset())
+  }
+}

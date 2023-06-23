@@ -146,7 +146,7 @@ class OrderBook extends HTMLElement {
         orderForm.appendChild(this.shadowRoot); 
     }
     connectedCallback() {
-        const orderBookElement = this.shadowRoot.querySelector('[data-shadow]')
+        const orderBookElement = this.document.querySelector('[data-shadow]')
         console.log(orderBookElement)
         const cancelButton = this.shadowRoot.querySelector('#cancelOrder');
 
@@ -158,9 +158,6 @@ class OrderBook extends HTMLElement {
 
 }
 customElements.define('book-order', OrderBook);
-
-
-
 
 const buttonOrder = document.querySelector('[data-button-order]')
 buttonOrder.addEventListener('click', () => {

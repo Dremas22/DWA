@@ -7,22 +7,18 @@ import { Action } from './actions.js'
  * @return {State}
  */
 export const reducer = (state, action) => {
-    switch (action.type) {
-        case 'ADD_TASK': {
+    switch (action) {
+        case 'INCREMENT': {
             return {
                 ...state,
-                
-                tasks: {
-                    [action.task.id]: action.task,
-                    ...state.tasks,
-                }
+                increment
             }
         }
         
-        case 'TOGGLE_ADD': {
+        case 'DREMENT': {
             return {
                 ...state,
-                phase: state === 'adding' ? 'idle' : 'adding',
+                decrement
             }
 
         }

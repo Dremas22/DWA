@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable lines-between-class-members */
 /* eslint-disable no-undef */
 /* eslint-disable no-multiple-empty-lines */
@@ -146,14 +147,16 @@ class OrderBook extends HTMLElement {
         orderForm.appendChild(this.shadowRoot); 
     }
     connectedCallback() {
-        const orderBookElement = this.document.querySelector('[data-shadow]')
-        console.log(orderBookElement)
-        const cancelButton = this.shadowRoot.querySelector('#cancelOrder');
+        const orderBookElement = document.body.querySelector('[data-shadow]')
+        
+        const cancelButton = document.body.querySelector('#cancelOrder');
+        //console.log(cancelButton)
 
-    
-        // cancelButton.addEventListener('click', () => {
-        //     this.shadowRoot.querySelector('.overlay__content').classList.add('hidden');
-        // });
+        cancelButton.addEventListener('click', () => {
+            document.querySelector('[data-order-form]').classList.add('hidden');
+        });
+
+        
     }
 
 }
